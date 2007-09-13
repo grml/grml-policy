@@ -1,25 +1,228 @@
 grml policy
 ===========
 
+*******************************************************************************
+Important! This file is not yet official - work in progress.
+*******************************************************************************
+
 Preface
 -------
 
-This is a short documentation describing different policies used at and for grml.
+This is a short documentation describing different policies used at and for
+link:http://grml.org/[grml].
 
 Packaging Software
 ------------------
 
-...
+If you are not yet familiar with **creating** Debian packaging useful
+resources are the link:http://www.debian.org/doc/maint-guide/[Debian New
+Maintainers' Guide] and
+link:http://www.debian.org/doc/manuals/developers-reference/index.en.html[The
+Debian Developer's Reference].
+
+Software that should be **added** to the grml repository (and as a
+consequence being available for inclusion in grml) must be packaged
+according to the
+link:http://www.debian.org/doc/debian-policy/index.html[Debian policy].
+The Debian packages should be
+link:http://lintian.debian.org/[lintian]-clean and have to provide manpages
+for the shipped executables. The package should be maintained inside a
+mercurial repository hosted at link:http://hg.grml.org/[hg.grml.org].
+If the package is a grml specific package (so upstream is different from
+the grml-team) the Debian package has to start with the suffix 'grml-' (so
+the grml specific packages can be identified easily).
+
+If you want to see software included in grml but won't be able to deal with
+the Debian package please link:http://grml.org/report/[send your feature
+request to the grml-team].
+
+Uploading Debian packages to link:http://deb.grml.org/[the grml pool] is
+restricted to the ftp-masters (being Michael Prokop and Alexander Wirt at
+the time of writing this document).
+
+As a long term goal the Debian packages used at grml should be provided to
+the official Debian distribution using the official
+link:http://www.debian.org/devel/wnpp/[WNPP / ITP (Intend To Package)]
+procedure.
 
 Adding Software to grml
 -----------------------
 
-...
+If you plan to write software for inclusion and distribution by grml you
+should be aware of the following requirements:
 
-Common practives for writing shellscript code
----------------------------------------------
+* The software has to be licensed under an
+link:http://www.opensource.org/licenses[OSI approved license] and should
+follow the link:http://www.debian.org/social_contract#guidelines[The Debian
+Free Software Guidelines (DFSG)]. The grml-team prefers the
+link:http://www.gnu.org/copyleft/gpl.html[GNU General Public License
+(GPL)]. If you want to see your patch/script/software included in a core
+grml package it has to be licensed under the GPL as well.
 
-...
+* Your software has to provide documentation. The package must provide at
+least an up2date manpage. The grml-team prefers documentation written in
+link:http://www.methods.co.nz/asciidoc/[asciidoc], see
+link:http://grml.org/docs/[grml.org/docs/] and
+link:http://hg.grml.org/grml-debootstrap/file/tip/grml-debootstrap.8.txt[grml-debootstrap.8.txt]
+for a real-life example.
+
+* Your software should be as platform independent as possible and should
+work at least on x86, x86_64 (amd64) and ppc.
+
+Contributing patches to grml
+----------------------------
+
+Software written by and maintained by the grml-team is available at
+link:http://hg.grml.org/[hg.grml.org]. If you plan to provide a patch to
+the grml-team you can checkout the according repository and create a patch
+using the 'hg diff' command. Usage example:
+
+  hg clone http://hg.grml.org/grml-policy
+  cd grml-policy
+  hg diff > update_for_grml-policy-mention_foobar.diff
+
+and mail the resulting diff to the grml-team. The maintainer of the
+according repository is listed in the Contact-column on
+link:http://hg.grml.org/[hg.grml.org]. You are free to
+link:http://grml.org/contact/[contact the grml-team directly via mail] or
+the link:http://grml.org/mailinglist/[grml-mailinglist] as well.
+
+More details regarding use of mercurial at grml is available at
+link:http://grml.org/mercurial/[grml.org/mercurial/].
+
+Common practices for writing code
+---------------------------------
+
+Header information
+~~~~~~~~~~~~~~~~~~
+
+Every script should provide a header which should look like this:
+
+  #!/bin/sh
+  # Filename:      grml2hd
+  # Purpose:       install grml to harddisk
+  # Authors:       grml-team (grml.org), (c) Andreas Gredler <jimmy@grml.org>, Michael Prokop <mika@grml.org>
+  # Bug-Reports:   see http://grml.org/bugs/
+  # License:       This file is licensed under the GPL v2.
+  # Latest change: Thu Sep 13 23:00:56 CEST 2007 [mika]
+  ################################################################################
+
+Footer information
+~~~~~~~~~~~~~~~~~~
+
+Most developers of the grml-team use Vim as their favourite editor.
+Therefor providing a modeline at the end of the sourcefile is commonly used
+to indicate the favourite editing mode/style. Usage example:
+
+  # vim: ai filetype=sh expandtab shiftwidth=3
+
+grml shellscript library
+~~~~~~~~~~~~~~~~~~~~~~~~
+
+The grml system provides several shellscript resources. The package
+grml-etc-core provides the files /etc/grml/lsb-functions and
+/etc/grml/script-functions, the package grml-shlib ships /etc/grml/sh-lib.
+
+/etc/grml/lsb-functions
+^^^^^^^^^^^^^^^^^^^^^^^
+
+The file /etc/grml/lsb-functions is used within init-scripts and init-style
+scripts (like shellscripts handling with services) and is supposed to be
+POSIX-compatible. Usage example:
+
+  % source /etc/grml/lsb-functions
+  % einfo "Starting foobar." ; /bin/true ; eend $?
+   * Starting foobar.                                  [ ok ]
+  % einfo "Starting foobar." ; /bin/false ; eend $?
+   * Starting foobar.                                  [ !! ]
+  %
+
+If you want to provide output on the plain console (without using an
+interface like link:http://invisible-island.net/dialog/[dialog] or
+link:http://www.clifford.at/stfl/[stfl]) you should consider the use of
+/etc/grml/lsb-functions so look and feel of grml-scripts is as consistent
+as possible.
+
+/etc/grml/script-functions
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+The file /etc/grml/script-functions provides common functions used inside
+several scripts, like check4root (check for root-permissions), iszsh (check
+for running zsh). The file is supposed to be used in every POSIX-compatible
+shell (otherwise it's a bug).
+
+/etc/grml/sh-lib
+^^^^^^^^^^^^^^^^
+
+The file /etc/grml/sh-lib provides a smiliar functionality like
+/etc/grml/lsb-functions and /etc/grml/script-functions do. As a long term
+goal the functionality of this file should be merged with the one of
+lsb-functions and script-functions.
+
+Good practices for shellscript
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+* **shebang line:** If you use '#!/bin/sh' as the shebang line of your
+shellscript you should make sure that the script runs under every
+POSIX-compatible shell. A good test is the use of /bin/dash for /bin/sh. If
+you use bash/zsh/ksh93/...  specific features please use the according
+shell in the sheband line of your script.
+
+* **check for appropriate permissions:** if you need root permissions you
+should make sure that your script is running as user root (take a look at
+check4root function provided by /etc/grml/script-functions).
+
+* **clean up when being interrupted and on exit:** your script should nod leave
+any temporary files (unless intented for debugging purposes of course).
+Usage example:
+
+  TMPFILE=$(mktemp ${TMP}/grml2hd.XXXXXX)
+  bailout() {
+    rm -f "$TMPFILE"
+    [ -n "$1" ] && EXIT="$1" || EXIT="1"
+    exit "$EXIT"
+  }
+  trap bailout 1 2 3 15
+  $CODE
+  bailout 0
+
+* **use of subshells:** please use $(...) instead of `...`. (TODO: provide
+reasons...)
+
+* **if ... then ... else ...**: you should make sure that the code is as
+easy understandable as possible. So instead of using:
+
+  if [ -n "$FOO" ] ; then
+     foo
+     bar
+     bla
+  else
+     baz
+  fi
+
+  you should consider use of:
+
+  if [ -z "$FOO" ] ; then
+     baz
+  else
+     foo
+     bar
+     bla
+  fi
+
+* **indenting:* make sure you indent your code and use blank lines where
+according. Commonly accepted textwidth is 80 chars. (TODO: provide some
+more information...)
+
+* **use of tabs:** the grml-team prefers to **not** use any tabs inside
+their code. Please use 8 spaces instead of a tab instead ('tabstop=8' and
+'set expandtab' when using Vim editor). To replace tabs with spaces you can
+use ':set expandtab' and ':retab' using Vim editor.
+
+* **no trailing whitespaces:** make sure your code does not contain any
+trailing whitespaces. Remove them inside Vim editor running ':%s/\s\+$//'
+and make them visible using for example ':set
+listchars=eol:$,precedes:«,extends:»,tab:»·,trail:·'.
 
 About this document
 -------------------
