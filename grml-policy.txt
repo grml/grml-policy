@@ -166,7 +166,7 @@ Good practices for shellscript
 shellscript you should make sure that the script runs under every
 POSIX-compatible shell. A good test is the use of /bin/dash for /bin/sh. If
 you use bash/zsh/ksh93/...  specific features please use the according
-shell in the sheband line of your script.
+shell in the shebang line of your script.
 
 * **check for appropriate permissions:** if you need root permissions you
 should make sure that your script is running as user root (take a look at
