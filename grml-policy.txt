@@ -1,0 +1,29 @@
+grml policy
+===========
+
+Preface
+-------
+
+This is a short documentation describing different policies used at and for grml.
+
+Packaging Software
+------------------
+
+...
+
+Adding Software to grml
+-----------------------
+
+...
+
+Common practives for writing shellscript code
+---------------------------------------------
+
+...
+
+About this document
+-------------------
+
+(c) Michael Prokop <mika@grml.org>; HTML version powered by link:http://www.methods.co.nz/asciidoc/[asciidoc].
+
+// vim: ft=asciidoc autoindent textwidth=75 formatoptions=tcqn
