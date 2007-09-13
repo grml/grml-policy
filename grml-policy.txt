@@ -172,7 +172,7 @@ shell in the shebang line of your script.
 should make sure that your script is running as user root (take a look at
 check4root function provided by /etc/grml/script-functions).
 
-* **clean up when being interrupted and on exit:** your script should nod leave
+* **clean up when being interrupted and on exit:** your script should not leave
 any temporary files (unless intented for debugging purposes of course).
 Usage example:
 
@@ -215,7 +215,7 @@ according. Commonly accepted textwidth is 80 chars. (TODO: provide some
 more information...)
 
 * **use of tabs:** the grml-team prefers to **not** use any tabs inside
-their code. Please use 8 spaces instead of a tab instead ('tabstop=8' and
+their code. Please use 4 spaces instead of a tab instead ('tabstop=8' and
 'set expandtab' when using Vim editor). To replace tabs with spaces you can
 use ':set expandtab' and ':retab' using Vim editor.
 
