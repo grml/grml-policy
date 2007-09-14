@@ -162,7 +162,7 @@ lsb-functions and script-functions.
 Good practices for shellscript
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **shebang line:** If you use '#!/bin/sh' as the shebang line of your
+* **shebang line:** if you use '#!/bin/sh' as the shebang line of your
 shellscript you should make sure that the script runs under every
 POSIX-compatible shell. A good test is the use of /bin/dash for /bin/sh. If
 you use bash/zsh/ksh93/...  specific features please use the according
