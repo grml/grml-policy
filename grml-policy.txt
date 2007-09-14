@@ -215,7 +215,7 @@ according. Commonly accepted textwidth is 80 chars. (TODO: provide some
 more information...)
 
 * **use of tabs:** the grml-team prefers to **not** use any tabs inside
-their code. Please use 4 spaces instead of a tab instead ('tabstop=8' and
+their code. Please use 4 spaces instead of a tab instead ('tabstop=4' and
 'set expandtab' when using Vim editor). To replace tabs with spaces you can
 use ':set expandtab' and ':retab' using Vim editor.
 
