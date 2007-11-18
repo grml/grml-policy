@@ -81,7 +81,7 @@ using the 'hg diff' command. Usage example:
   cd grml-policy
   hg diff > update_for_grml-policy-mention_foobar.diff
 
-and mail the resulting diff to the grml-team. The maintainer of the
+And mail the resulting diff to the grml-team. The maintainer of the
 according repository is listed in the Contact-column on
 link:http://hg.grml.org/[hg.grml.org]. You are free to
 link:http://grml.org/contact/[contact the grml-team directly via mail] or
@@ -186,8 +186,32 @@ Usage example:
   $CODE
   bailout 0
 
-* **use of subshells:** please use $(...) instead of `...`. (TODO: provide
-reasons...)
+* **use of subshells:** please use _$(...)_ instead of _\`...\`_.
++
+It allows nesting of commands in a more clearly and easier way.
+Therefore any shell code might appear within the parentheses, since
+the only time parentheses occur unquoted is in pairs. +
+With backquotes however any unquoted _\`_ within the form _\`...\`_
+would end the quotes immediately.
++
+Consider the following as an example on readability:
+
+  % echo "Tomorrow's date: `expr \`date +%d\` + 1`.`date +%m`."
+  % echo "Tomorrow's date: $(expr $(date +%d) + 1).$(date +%m)."
++
+Furthermore it can get quite tricky to get the right level of quotes
+when using backquotes.
+
+  % print "`echo \"hello\"`"
+  hello
+  % print "$(echo \"hello\")"
+  "hello"
++
+For further reading have a look at
+link:http://zsh.dotsrc.org/Guide/zshguide05.html#l11[A User's Guide to the
+Z Shell]
+and link:http://zsh.sourceforge.net/Intro/intro_7.html#SEC7[Introduction to
+the Z Shell]
 
 * **if ... then ... else ...**: you should make sure that the code is as
 easy understandable as possible. So instead of using:
@@ -210,7 +234,7 @@ easy understandable as possible. So instead of using:
      bla
   fi
 
-* **indenting:* make sure you indent your code and use blank lines where
+* **indenting:** make sure you indent your code and use blank lines where
 according. Commonly accepted textwidth is 80 chars. (TODO: provide some
 more information...)
 
@@ -227,6 +251,6 @@ listchars=eol:$,precedes:«,extends:»,tab:»·,trail:·'.
 About this document
 -------------------
 
-(c) Michael Prokop <mika@grml.org>; HTML version powered by link:http://www.methods.co.nz/asciidoc/[asciidoc].
+(C) Michael Prokop <mika@grml.org>; HTML version powered by link:http://www.methods.co.nz/asciidoc/[asciidoc].
 
 // vim: ft=asciidoc autoindent textwidth=75 formatoptions=tcqn
