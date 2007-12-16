@@ -77,9 +77,12 @@ link:http://hg.grml.org/[hg.grml.org]. If you plan to provide a patch to
 the grml-team you can checkout the according repository and create a patch
 using the 'hg diff' command. Usage example:
 
-  hg clone http://hg.grml.org/grml-policy
-  cd grml-policy
-  hg diff > update_for_grml-policy-mention_foobar.diff
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+hg clone http://hg.grml.org/grml-policy
+cd grml-policy
+hg diff > update_for_grml-policy-mention_foobar.diff
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 And mail the resulting diff to the grml-team. The maintainer of the
 according repository is listed in the Contact-column on
@@ -130,12 +133,15 @@ The file /etc/grml/lsb-functions is used within init-scripts and init-style
 scripts (like shellscripts handling with services) and is supposed to be
 POSIX-compatible. Usage example:
 
-  % source /etc/grml/lsb-functions
-  % einfo "Starting foobar." ; /bin/true ; eend $?
-   * Starting foobar.                                  [ ok ]
-  % einfo "Starting foobar." ; /bin/false ; eend $?
-   * Starting foobar.                                  [ !! ]
-  %
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% source /etc/grml/lsb-functions
+% einfo "Starting foobar." ; /bin/true ; eend $?
+ * Starting foobar.                                  [ ok ]
+% einfo "Starting foobar." ; /bin/false ; eend $?
+ * Starting foobar.                                  [ !! ]
+%
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 If you want to provide output on the plain console (without using an
 interface like link:http://invisible-island.net/dialog/[dialog] or
@@ -175,16 +181,19 @@ check4root function provided by /etc/grml/script-functions).
 * **clean up when being interrupted and on exit:** your script should not leave
 any temporary files (unless intented for debugging purposes of course).
 Usage example:
-
-  TMPFILE=$(mktemp ${TMP}/grml2hd.XXXXXX)
-  bailout() {
-    rm -f "$TMPFILE"
-    [ -n "$1" ] && EXIT="$1" || EXIT="1"
-    exit "$EXIT"
-  }
-  trap bailout 1 2 3 15
-  $CODE
-  bailout 0
++
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+TMPFILE=$(mktemp ${TMP}/grml2hd.XXXXXX)
+bailout() {
+  rm -f "$TMPFILE"
+  [ -n "$1" ] && EXIT="$1" || EXIT="1"
+  exit "$EXIT"
+}
+trap bailout 1 2 3 15
+$CODE
+bailout 0
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * **use of subshells:** please use _$(...)_ instead of _\`...\`_.
 +
@@ -195,17 +204,23 @@ With backquotes however any unquoted _\`_ within the form _\`...\`_
 would end the quotes immediately.
 +
 Consider the following as an example on readability:
-
-  % echo "Tomorrow's date: `expr \`date +%d\` + 1`.`date +%m`."
-  % echo "Tomorrow's date: $(expr $(date +%d) + 1).$(date +%m)."
++
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% echo "Tomorrow's date: `expr \`date +%d\` + 1`.`date +%m`."
+% echo "Tomorrow's date: $(expr $(date +%d) + 1).$(date +%m)."
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
 Furthermore it can get quite tricky to get the right level of quotes
 when using backquotes.
-
-  % print "`echo \"hello\"`"
-  hello
-  % print "$(echo \"hello\")"
-  "hello"
++
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+% print "`echo \"hello\"`"
+hello
+% print "$(echo \"hello\")"
+"hello"
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 +
 For further reading have a look at
 link:http://zsh.dotsrc.org/Guide/zshguide05.html#l11[A User's Guide to the
@@ -215,24 +230,27 @@ the Z Shell]
 
 * **if ... then ... else ...**: you should make sure that the code is as
 easy understandable as possible. So instead of using:
++
+[shell]
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+if [ -n "$FOO" ] ; then
+   foo
+   bar
+   bla
+else
+   baz
+fi
 
-  if [ -n "$FOO" ] ; then
-     foo
-     bar
-     bla
-  else
-     baz
-  fi
+you should consider use of:
 
-  you should consider use of:
-
-  if [ -z "$FOO" ] ; then
-     baz
-  else
-     foo
-     bar
-     bla
-  fi
+if [ -z "$FOO" ] ; then
+   baz
+else
+   foo
+   bar
+   bla
+fi
+source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * **indenting:** make sure you indent your code and use blank lines where
 according. Commonly accepted textwidth is 80 chars. (TODO: provide some
