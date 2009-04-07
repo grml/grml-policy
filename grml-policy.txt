@@ -14,7 +14,7 @@ link:http://grml.org/[grml].
 Packaging Software
 ------------------
 
-If you are not yet familiar with **creating** Debian packaging useful
+If you are not yet familiar with **creating** Debian packaging, useful
 resources are the link:http://www.debian.org/doc/maint-guide/[Debian New
 Maintainers' Guide] and
 link:http://www.debian.org/doc/manuals/developers-reference/index.en.html[The
@@ -126,7 +126,7 @@ Most developers of the grml-team use Vim as their favourite editor.
 Therefor providing a modeline at the end of the sourcefile is commonly used
 to indicate the favourite editing mode/style. Usage example:
 
-  # vim: ai filetype=sh expandtab shiftwidth=3
+  # vim: autoindent filetype=sh expandtab shiftwidth=4
 
 grml shellscript library
 ~~~~~~~~~~~~~~~~~~~~~~~~
@@ -163,7 +163,7 @@ as possible.
 
 The file /etc/grml/script-functions provides common functions used inside
 several scripts, like check4root (check for root-permissions), iszsh (check
-for running zsh). The file is supposed to be used in every POSIX-compatible
+for running zsh). The file is supposed to work with every POSIX-compatible
 shell (otherwise it's a bug).
 
 /etc/grml/sh-lib
@@ -269,14 +269,14 @@ do
 done
 source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-* **indenting:** make sure you indent your code and use blank lines where
+* **whitespace:** make sure you indent your code and use blank lines where
 according. Commonly accepted textwidth is 80 chars. (TODO: provide some
 more information...)
 
-* **use of tabs:** the grml-team prefers to **not** use any tabs inside
-their code. Please use 4 spaces instead of a tab instead ('tabstop=4' and
-'set expandtab' when using Vim editor). To replace tabs with spaces you can
-use ':set expandtab' and ':retab' using Vim editor.
+* **indenting and use of tabs:** the grml-team prefers to **not** use any
+tabs inside their code. Please use 4 spaces instead of a tab instead
+('tabstop=4' and 'set expandtab' when using Vim editor). To replace tabs
+with spaces you can use ':set expandtab' and ':retab' using Vim editor.
 
 * **no trailing whitespaces:** make sure your code does not contain any
 trailing whitespaces. Remove them inside Vim editor running ':%s/\s\+$//'
