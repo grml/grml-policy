@@ -26,15 +26,18 @@ according to the
 link:http://www.debian.org/doc/debian-policy/index.html[Debian policy].
 The Debian packages should be
 link:http://lintian.debian.org/[lintian]-clean and have to provide manpages
-for the shipped executables. The package should be maintained inside a
-mercurial repository hosted at link:http://hg.grml.org/[hg.grml.org].
-If the package is a grml specific package (so upstream is different from
+for the shipped executables. The package should either be maintained inside
+a git repository hosted at link:http://git.grml.org/[git.grml.org] or be
+part of the official debian repository.
+If a package is a grml specific package (so upstream is different from
 the grml-team) the Debian package has to start with the suffix 'grml-' (so
 the grml specific packages can be identified easily).
 
 If you want to see software included in grml but won't be able to deal with
 the Debian package please link:http://grml.org/report/[send your feature
-request to the grml-team].
+request to the grml-team] or by sending a mail to
+mailto:bts@bts.grml.org[bts@bts.grml.org], which will add an issue to
+link:http://bts.grml.org[bts.grml.org].
 
 Uploading Debian packages to link:http://deb.grml.org/[the grml pool] is
 restricted to the ftp-masters (being Michael Prokop and Alexander Wirt at
@@ -73,25 +76,31 @@ Contributing patches to grml
 ----------------------------
 
 Software written by and maintained by the grml-team is available at
-link:http://hg.grml.org/[hg.grml.org]. If you plan to provide a patch to
+link:http://git.grml.org/[git.grml.org]. If you plan to provide a patch to
 the grml-team you can checkout the according repository and create a patch
-using the 'hg diff' command. Usage example:
+using the 'git diff' or even better the 'git format-patch' command. Usage
+example:
 
 [shell]
 source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-hg clone http://hg.grml.org/grml-policy
-cd grml-policy
-hg diff > update_for_grml-policy-mention_foobar.diff
+% git clone git://git.grml.org/grml-policy.git
+% cd grml-policy
+% git checkout -b mygreatfeature
+% [hack hack hack]
+% git commit -a
+% git format-patch master
 source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-And mail the resulting diff to the grml-team. The maintainer of the
-according repository is listed in the Contact-column on
-link:http://hg.grml.org/[hg.grml.org]. You are free to
-link:http://grml.org/contact/[contact the grml-team directly via mail] or
-the link:http://grml.org/mailinglist/[grml-mailinglist] as well.
+And mail the resulting patches to the grml-team with your favourite mail
+client or using 'git send-email'. The maintainer of the according
+repository is listed in the owner-column on
+link:http://git.grml.org/[git.grml.org]. You are free to
+link:http://grml.org/contact/[contact the grml-team directly via mail],
+link:http://bts.grml.org/[the grml bug tracking system], or the
+link:http://grml.org/mailinglist/[grml-mailinglist] as well.
 
-More details regarding use of mercurial at grml is available at
-link:http://grml.org/mercurial/[grml.org/mercurial/].
+More details regarding use of git within grml is available at
+link:http://grml.org/git/[grml.org/git/].
 
 Common practices for writing code
 ---------------------------------
