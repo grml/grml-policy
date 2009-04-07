@@ -237,28 +237,36 @@ Z Shell]
 and link:http://zsh.sourceforge.net/Intro/intro_7.html#SEC7[Introduction to
 the Z Shell]
 
-* **if ... then ... else ...**: you should make sure that the code is as
-easy understandable as possible. So instead of using:
+* **if ... then ... else ... etc.**: Use the coding style used in other
+shell scripts shipped by grml, like:
 +
 [shell]
 source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+## use the following forms:
+
 if [ -n "$FOO" ] ; then
-   foo
-   bar
-   bla
+    bar
 else
-   baz
+    baz
 fi
 
-you should consider use of:
+while [ -n "$FOO" ] ; do
+    bar
+done
 
-if [ -z "$FOO" ] ; then
-   baz
+## instead of these:
+
+if [ -n "$FOO" ]
+then
+    bar
 else
-   foo
-   bar
-   bla
+    baz
 fi
+
+while [ -n "$FOO" ]
+do
+    bar
+done
 source~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 * **indenting:** make sure you indent your code and use blank lines where
